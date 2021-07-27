@@ -1,5 +1,4 @@
 var url = "https://api.spotify.com/v1/users"
-var token
 async function gettoken(){
     let clientid = 'a09f6a83c6664fceb916b6726619e890'
     let clientsecret ='d746dd693a9d4104b0e2813d470a3ad9'
@@ -10,132 +9,91 @@ async function gettoken(){
         body: 'grant_type=client_credentials'})
 
         let data =  await result.json();
-        let user_id = document.getElementById("fn").value
-        console.log(data)
-        getuser(user_id,data.access_token)
-
-       //console.log("HI :" + result)
-       
-        //console.log(data.access_token)
-         //console.log(data)
         
-      //  console.log(data.access_token);
-        //return Promise.resolve(data.access_token)
-//       token = data.access_token
-//return data.access_token
-//} 
-
-//let token11 = gettoken()
-//console.log(token11)
-//gettoken()
-
-//getoken(ont)
-//function foo(token)
-//{
-//    getoken(ont)     
-//}
-
-//function getoken(ont)
-//{
-//    return ont
-//} 
-
-//getuser(user_id,data.access_token)
-
-//console.log("HI :" + token)
-
-
-//let data1 = new Promise()
-//data1 = gettoken();
-//console.log(typeof(data1))
-//console.log(data1.access_token)
-
-//console.log(token.access_token)
-//let token1 = gettoken().then(value => {return value});
-//console.log("hi :" + token1)
-
-//async function getusers()
-//{
-
-}  
-async function getuser(user_id,token)
-{
-  
-    console.log(user_id)
-let userpr = await fetch('https://api.spotify.com/v1/users/' + user_id + '/playlists', 
-{   method : 'GET',
-    headers: { 'Authorization' : 'Bearer ' + token}
-});
-    let userdata = await userpr.json();
-        console.log(userdata)
-  //  let userpr = await fetch('https://api.spotify.com/v1/me',
-   // let name = userdata.items[0].name
-    //let imge = userdata.items[0].images[1].url
-    //console.log(imge)
-    //userdata.items.forEach(function(element) {
-      // console.log(element.tracks.href)
-       //gettracks(element.tracks.href,token)
-    //});
-   document.getElementById("cc1").innerHTML= user_id
-   // let im = document.getElementById("pli")
-       // im.src = imge
-let tbody = document.getElementById("tbody")
-//let userdi = document.getElementById("c1")
-//userdi.innerHTML = user_id
-//tbody.innerHTML = `<div><h3> Playlist User Name - ${user_id} </h3></div>`
-document.querySelector("form").reset()
-
-userdata.items.forEach((element) => {
-    let imgsrc = element.images[2];
-    let imgulr = imgsrc.url 
-    tbody.innerHTML += 
-
-    `<tr class='cl'>
-            <td >
-                <div class="card">
-                <div>
-                <img class="card-img-top" id= "pli"  src="${imgulr}" onclick="gettracks()" alt="Card image cap">
-                </div>
-               <div>
-          </td>
-          <td>
-            <h6 class="card-title" id="pln">${element.name}</h6>
-            </td>
-            <td>
-            <a class='text-warning cc1'  onclick="getplaylist(${element.id})">Update</a> | <a class='text-danger' onclick="deleteplaylist(${element.id})">Delete</a>
-            </td>
-        </tr>`  
-});
-
-
-//document.getElementById("fn").value = ""
+        console.log("t " + data.access_token)
+        localStorage.setItem("id",data.access_token)
 }
 
-async function getplaylist(plid)
+async function getuserpr()
 {
+    document.getElementById("card").innerHTML=""  
+    let ims  = document.getElementById("im")
+     ims.removeAttribute('src')
+    let user_id = document.getElementById("name").value
+   // console.log("hi" + token)
+      gettoken()
+       console.log(localStorage.getItem("id"))
+      //console.log(plid)
+      //let user_id1 = 'zozw93fo6mwptz4p8077pmdv5' 
+    let token1 = localStorage.getItem("id")
 
-    console.log("hi" + token)
-
-    let url = 'https://api.spotify.com/v1/playlists/' + plid + '/tracks'
+    let url = 'https://api.spotify.com/v1/users/' + user_id
 
     let tracks = await fetch(url,{ 
-    method : 'GET',
-    headers: { 'Authorization' : 'Bearer ' + token}
+     method : 'GET',
+     headers: { 'Authorization' : 'Bearer ' + token1}
     })
     tracklist = await tracks.json();
     console.log(tracklist)
+    console.log(tracklist.display_name)
+    //console.log(tracklist.images[0].url)
+    document.getElementById("fn").innerHTML = tracklist.display_name
+    let img1 = document.getElementById("im") 
+    console.log(tracklist.images.length)
+    if (tracklist.images.length !== 0)
+    {
+        img1.src= tracklist.images[0].url
+    }
 
+    document.querySelector("form").reset()
+    userplaylist(user_id)
 }
 
-async function deleteplaylist(plid)
+async function userplaylist(uid)
 {
-    console.log("hi" + token) 
-    let murl = 'https://api.spotify.com/v1/users' + plid + '/playlist'
-    let tracks = fetch(url,{ 
-    method : 'GET',
-    headers: { 'Authorization' : 'Bearer ' + token}
-    })
+    gettoken()
+    let token2 = localStorage.getItem("id")
+    //let user_id = document.getElementById("fn").value   
+    console.log(uid)
+    let userpr = await fetch('https://api.spotify.com/v1/users/' + uid + '/playlists', 
+    {   method : 'GET',
+    headers: { 'Authorization' : 'Bearer ' + token2}
+    });
+    let userdata = await userpr.json();
+    console.log(userdata)
 
-    let trackslist = await (await tracks).json()
-    console.log(trackslist)
+    let tbody = document.getElementById("tbody")
+    document.querySelector("form").reset()
+    let divc = document.getElementById("card")
+    let row = document.createElement("div")
+    row.setAttribute('class','row')
+
+    userdata.items.forEach((element) => {
+            let imgsrc = element.images[1];
+            let imgulr = imgsrc.url
+            let col = document.createElement("div")
+            col.setAttribute('class','col-3 mb-3')
+    
+            let card = document.createElement("div")
+            card.setAttribute('class','card h-100')
+    
+            let imgcard = document.createElement("img")
+            imgcard.setAttribute('class','card-img-top')
+            imgcard.setAttribute('src',imgulr)
+    
+            let cardbody = document.createElement("div")
+            cardbody.setAttribute('class','card-body')
+    
+            let cardtitle = document.createElement("h4")
+            cardtitle.setAttribute('class','card-title')
+            cardtitle.innerHTML = element.name 
+            cardbody.append(cardtitle)
+            card.append(imgcard,cardbody)
+            col.append(card)
+            row.append(col)
+            divc.append(row)
+        });
+
+ //       document.body.append(divc)
+     
 }
