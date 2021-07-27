@@ -69,7 +69,7 @@ async function userplaylist(uid)
     row.setAttribute('class','row')
 
     userdata.items.forEach((element) => {
-            let imgsrc = element.images[1];
+            let imgsrc = element.images[0];
             let imgulr = imgsrc.url
             let col = document.createElement("div")
             col.setAttribute('class','col-3 mb-3')
