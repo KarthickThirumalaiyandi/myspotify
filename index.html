@@ -1,37 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spotify API</title>
+    <title>Document</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style1.css"> 
 </head>
-<body id="cbody" class=cbody>
-    <div class="container" >
-        <div class= "row">
-            <div class="col col-3">
-                <div class="form">
-                <form class="form-group" id="myform">
-                <div class="form-group">
-                    <label class="cc1">Name</label>
-                    <input type="text" id="fn" name="name" class="form-control">
-                    <button type="button" class="btn btn-primary"  onclick="gettoken()" value='Search'>Search</button>
-                    <div id="cc1" class="cc1"></div>    
-                </div>
+
+<body id="myhtmlbody">
+
+    <div class="container" id="cont">
+        <div class="row mt-5 ">
+            <div class="col-sm-12 col-lg-3">
+                <form>
+                    <div class="form-group">
+                        <label for="name">UserName</label>
+                        <input type="text" class="form-control" id="name" required>
+                    </div>
+                    <input type="button" value="Submit" class="btn btn-primary" onclick="getuserpr()">
                 </form>
-                </div>
             </div>
-            <div class="col col-5   " id="c2">
-                <table> 
-                    <tbody id="tbody"> 
+            <div class="col-sm-12 col-lg-4">
+                <table>
+                    <tbody id="tbody">
+                        <tr>
+                           <td> <div class="circle"><img alt="" class="logo" id="im"></div></td>
+                           <td> 
+                            <div class="pr"><h6>PROFILE</h6></div>
+                            <div class="disname" id="fn" ></div>
+                        </td>
+                        </tr>
                     </tbody>
-                </table>
-            </div>
+                </table>    
+            </div>    
         </div>
     </div>
-   
-<script src="script.js"></script>
+    <div class="container" id="card"></div>
+    </div>
+    
+    <script src="script1.js"></script>
 </body>
+
+
 </html>
