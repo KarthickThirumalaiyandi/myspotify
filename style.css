@@ -1,10 +1,29 @@
-.container{
-    background-color: black;
-}
-.card-title
-{
+.circle {
+    width: 200px;
+    height: 200px;
+    border-radius: 100px;
+    background-color: rgb(32, 31, 31)
+    
+ }
+ body{
+     background-color: black;
+ }
+ #tbody {
+     color: white;
+ }
+.form-group{
     color: white;
 }
-.cc1{
-    color: white;
+
+.disname{
+    
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: xx-large;
+    font-weight: 900;
+    width: 200%;
+}
+.logo{
+    width: 200px;
+    height:200px;
+    border-radius: 100%;
 }
