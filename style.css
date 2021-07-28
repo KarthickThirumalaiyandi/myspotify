@@ -15,15 +15,61 @@
     color: white;
 }
 
-.disname{
+.disname {
     
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-size: xx-large;
     font-weight: 900;
     width: 200%;
 }
+
+.flw {
+    
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size:small;    
+    width: 200%;
+}
+.ply{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: small;
+    
+}
+.pw{
+    width: 200%;
+}
+.btn-dark{
+    
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: small;
+    font-weight: bold;
+}
+
 .logo{
     width: 200px;
     height:200px;
     border-radius: 100%;
+}
+.row{
+    padding-top: 2%;
+}
+.pal{
+    padding-top: 1%;
+    color: white;
+    font-size: 200%;
+}
+.pal:hover{
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.card{
+    background-color: rgb(49, 49, 49)
+}
+.card:hover{
+    background-color: red
+}
+.card-body{
+    background-color: black;
+    border-color: none;
+    color: white;
 }
