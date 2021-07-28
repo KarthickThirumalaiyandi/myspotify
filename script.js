@@ -1,99 +1,124 @@
-var url = "https://api.spotify.com/v1/users"
-async function gettoken(){
-    let clientid = 'a09f6a83c6664fceb916b6726619e890'
-    let clientsecret ='d746dd693a9d4104b0e2813d470a3ad9'
-    let result = await fetch('https://accounts.spotify.com/api/token',{
-        method: 'POST',
-        headers: {'Content-Type' : 'application/x-www-form-urlencoded',
-        'Authorization' : 'Basic ' + btoa(clientid + ':' + clientsecret)},
-        body: 'grant_type=client_credentials'})
+    var url = "https://api.spotify.com/v1/users"
+    async function gettoken(){
+        let clientid = 'a09f6a83c6664fceb916b6726619e890'
+        let clientsecret ='d746dd693a9d4104b0e2813d470a3ad9'
+        let result = await fetch('https://accounts.spotify.com/api/token',{
+            method: 'POST',
+            headers: {'Content-Type' : 'application/x-www-form-urlencoded',
+            'Authorization' : 'Basic ' + btoa(clientid + ':' + clientsecret)},
+            body: 'grant_type=client_credentials'})
 
-        let data =  await result.json();
-        
-        console.log("t " + data.access_token)
-        localStorage.setItem("id",data.access_token)
-}
-
-async function getuserpr()
-{
-    document.getElementById("card").innerHTML=""  
-    let ims  = document.getElementById("im")
-     ims.removeAttribute('src')
-    let user_id = document.getElementById("name").value
-   // console.log("hi" + token)
-      gettoken()
-       console.log(localStorage.getItem("id"))
-      //console.log(plid)
-      //let user_id1 = 'zozw93fo6mwptz4p8077pmdv5' 
-    let token1 = localStorage.getItem("id")
-
-    let url = 'https://api.spotify.com/v1/users/' + user_id
-
-    let tracks = await fetch(url,{ 
-     method : 'GET',
-     headers: { 'Authorization' : 'Bearer ' + token1}
-    })
-    tracklist = await tracks.json();
-    console.log(tracklist)
-    console.log(tracklist.display_name)
-    //console.log(tracklist.images[0].url)
-    document.getElementById("fn").innerHTML = tracklist.display_name
-    let img1 = document.getElementById("im") 
-    console.log(tracklist.images.length)
-    if (tracklist.images.length !== 0)
-    {
-        img1.src= tracklist.images[0].url
+            let data =  await result.json();
+            
+            console.log("t " + data.access_token)
+            localStorage.setItem("id",data.access_token)
     }
 
-    document.querySelector("form").reset()
-    userplaylist(user_id)
-}
+    async function getuserpr()
+    {
+        document.getElementById("card").innerHTML=""
+        //document.getElementById("pws").innerHTML=""  
+        let ims  = document.getElementById("im")
+        ims.removeAttribute('src')
+        let user_id = document.getElementById("name").value
+    // console.log("hi" + token)
+        gettoken()
+        console.log(localStorage.getItem("id"))
+        //console.log(plid)
+        //let user_id1 = 'zozw93fo6mwptz4p8077pmdv5' 
+        let token1 = localStorage.getItem("id")
 
-async function userplaylist(uid)
-{
-    gettoken()
-    let token2 = localStorage.getItem("id")
-    //let user_id = document.getElementById("fn").value   
-    console.log(uid)
-    let userpr = await fetch('https://api.spotify.com/v1/users/' + uid + '/playlists', 
-    {   method : 'GET',
-    headers: { 'Authorization' : 'Bearer ' + token2}
-    });
-    let userdata = await userpr.json();
-    console.log(userdata)
+        let url = 'https://api.spotify.com/v1/users/' + user_id
 
-    let tbody = document.getElementById("tbody")
-    document.querySelector("form").reset()
-    let divc = document.getElementById("card")
-    let row = document.createElement("div")
-    row.setAttribute('class','row')
+        let tracks = await fetch(url,{ 
+        method : 'GET',
+        headers: { 'Authorization' : 'Bearer ' + token1}
+        })
+        tracklist = await tracks.json();
+        console.log(tracklist)
+        console.log(tracklist.display_name)
+        //console.log(tracklist.images[0].url)
+        document.getElementById("fn").innerHTML = tracklist.display_name
+        let img1 = document.getElementById("im") 
+        console.log(tracklist.images.length)
+        document.getElementById("flr").innerHTML = tracklist.followers.total + " Followers ."
+        if (tracklist.images.length !== 0)
+        {
+            img1.src= tracklist.images[0].url
+        }
 
-    userdata.items.forEach((element) => {
-            let imgsrc = element.images[0];
-            let imgulr = imgsrc.url
-            let col = document.createElement("div")
-            col.setAttribute('class','col-3 mb-3')
-    
-            let card = document.createElement("div")
-            card.setAttribute('class','card h-100')
-    
-            let imgcard = document.createElement("img")
-            imgcard.setAttribute('class','card-img-top')
-            imgcard.setAttribute('src',imgulr)
-    
-            let cardbody = document.createElement("div")
-            cardbody.setAttribute('class','card-body')
-    
-            let cardtitle = document.createElement("h4")
-            cardtitle.setAttribute('class','card-title')
-            cardtitle.innerHTML = element.name 
-            cardbody.append(cardtitle)
-            card.append(imgcard,cardbody)
-            col.append(card)
-            row.append(col)
-            divc.append(row)
+        document.querySelector("form").reset()
+        userplaylist(user_id)
+    }
+
+    async function userplaylist(uid)
+    {
+        gettoken()
+        let token2 = localStorage.getItem("id")
+        //let user_id = document.getElementById("fn").value   
+        console.log(uid)
+        let userpr = await fetch('https://api.spotify.com/v1/users/' + uid + '/playlists?limit=50', 
+        {   method : 'GET',
+        headers: { 'Authorization' : 'Bearer ' + token2}
         });
+        let userdata = await userpr.json();
+        console.log(userdata)
 
- //       document.body.append(divc)
-     
-}
+        let tbody = document.getElementById("tbody")
+        document.querySelector("form").reset()
+        let divc = document.getElementById("card")
+        let row = document.createElement("div")
+        row.setAttribute('class','row')
+
+        let pla = document.createElement("div")
+        pla.setAttribute('class','pal')
+        pla.innerHTML="Public Playlists"
+
+        let btn = document.createElement("button")
+        btn.setAttribute('class','btn btn-secondary btn-dark')
+        btn.innerHTML = "FOLLOW"
+
+        userdata.items.forEach((element) => {
+            let imgulr
+            console.log("HI" + element.images.length)
+            //console.log("HI" + element.images[0].url)
+
+                if (element.images.length !== 0)
+                {
+                    imgulr = element.images[0].url
+                }
+                
+                
+                let col = document.createElement("div")
+                col.setAttribute('class','col-3 mb-3')
+        
+                let card = document.createElement("div")
+                card.setAttribute('class','card h-100')
+        
+               let imgcard = document.createElement("img")
+               imgcard.setAttribute('class','card-img-top')
+               imgcard.setAttribute('src',imgulr)
+        
+                let cardbody = document.createElement("div")
+                cardbody.setAttribute('class','card-body')
+        
+                let cardtitle = document.createElement("h6")
+                cardtitle.setAttribute('class','card-title')
+                cardtitle.innerHTML = element.name 
+                cardbody.append(cardtitle)
+                card.append(imgcard,cardbody)
+                //card.append(cardbody)
+                col.append(card)
+                row.append(col)
+                divc.append(btn,pla,row)
+                
+            });
+//            console.log("hi" + userdata.total)
+            document.getElementById("pl").innerHTML =  userdata.total + " Playlists ."
+            
+    //       document.body.append(divc)
+        //userfollowera(uid1)
+        
+    }
+
+    
