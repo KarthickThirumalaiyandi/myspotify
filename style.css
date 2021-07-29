@@ -63,10 +63,15 @@
 }
 
 .card{
-    background-color: rgb(49, 49, 49)
+    background-color: rgb(49, 49, 49);
+    transition: 0.5s ease;
+    cursor: pointer;
+    margin: 10px;
 }
 .card:hover{
-    background-color: red
+    background-color: red;
+    transform: scale(1.09);
+    box-shadow: 1px 1px 1px rgb(0, 0, 0, 0.6);
 }
 .card-body{
     background-color: black;
