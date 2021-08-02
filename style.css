@@ -44,6 +44,11 @@
     font-weight: bold;
 }
 
+.adddel
+{
+    padding-top: 2%;
+}
+
 .logo{
     width: 200px;
     height:200px;
@@ -63,18 +68,23 @@
 }
 
 .card{
-    background-color: rgb(49, 49, 49);
+    background-color: black;
     transition: 0.5s ease;
     cursor: pointer;
     margin: 10px;
 }
 .card:hover{
-    background-color: red;
+    border-color:red;
     transform: scale(1.09);
     box-shadow: 1px 1px 1px rgb(0, 0, 0, 0.6);
 }
-.card-body{
+.card-title{
     background-color: black;
     border-color: none;
+    color: white;
+}
+
+.tracklst
+{
     color: white;
 }
